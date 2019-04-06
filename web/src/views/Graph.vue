@@ -79,7 +79,7 @@ export default {
         },
         legend: {
           x: 'center',
-          show: false
+          show: false,
         },
         series: [
           {
@@ -151,8 +151,8 @@ export default {
             let link = {
               sid: value.sid,
               tid: value.tid,
-              source: value.sid,
-              target: value.tid,
+              source: value.source,
+              target: value.target,
               value: value.value
             }
             links.push(link)
@@ -200,7 +200,7 @@ export default {
         pic: data.pic,
         source: source,
         source_id: sourceId,
-        create_date: data.create_date
+        create_date: data.create_date,
       })
       this.$root.eventHub.$emit('openRightDrawer')
     },

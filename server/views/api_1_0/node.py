@@ -33,12 +33,17 @@ class NodePostApi(Resource):
         """
         uid = get_jwt_identity()
         vals = dict(parser.parse_args())
-        graph = Graph.query.get(vals['graph_id'])
+        name = vals['name']
+        graph_id = vals['graph_id']
+        graph = Graph.query.get(graph_id)
         if not (graph and graph.owner_id == uid):
             return {'msg': 'Not allowed to post'}, 400
         vals.update({
             'owner_id': uid,
         })
+        node = Node.query.filter_by(graph_id=graph_id, name=name).all()
+        if node:
+            return {'msg': 'Node have same name'}
         node = Node(**vals)
         db.session.add(node)
         db.session.commit()

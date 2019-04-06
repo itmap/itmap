@@ -111,7 +111,7 @@ export default {
       node: state => state.node,
       user: state => state.user,
       graph: state => state.graph,
-      source: state => state.node.name
+      source: state => state.node.name,
     })
   },
   methods: {
@@ -191,11 +191,16 @@ export default {
     addNode (data) {
       addNodeApi(data).then(response => {
         this.newNodeId = response.data
+        if (typeof this.newNodeId != 'number'){
+          this.$root.eventHub.$emit('snackbar', '不能创建相同名字的节点')
+          return;
+        }
         data['target_id'] = this.newNodeId
         data['nid'] = this.newNodeId
         this.handlerUpload()
         this.$root.eventHub.$emit('addNode', data)
         if (this.node.name && this.name) {
+          console.log(this.newNodeId)
           addLinkApi({
             source_id: this.node.id,
             target_id: this.newNodeId,
@@ -203,8 +208,8 @@ export default {
             value: this.info
           }).then(response => {
             this.$root.eventHub.$emit('addLink', {
-              source: this.node.id,
-              target: this.newNodeId,
+              source: this.node.name,
+              target: this.name,
               value: this.info
             })
             this.init()

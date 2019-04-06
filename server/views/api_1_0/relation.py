@@ -33,6 +33,7 @@ class NodeRelationApi(Resource):
         """
         uid = get_jwt_identity()
         vals = dict(parser.parse_args())
+        print(vals)
         source = Node.query.get(vals['source_node_id'])
         target = Node.query.get(vals['target_node_id'])
         if not (source and target
