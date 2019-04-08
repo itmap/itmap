@@ -24,11 +24,8 @@ relation_fields = {
     'source': fields.String(attribute='from_node.name'),
     'target': fields.String(attribute='to_node.name'),
     'gid': fields.Integer(attribute='graph_id'),
-    'timestamp': fields.DateTime,
     'value': fields.String(attribute='info'),
     'color': fields.String,
-    'is_dual_way': fields.Boolean,
-    'line_type': fields.String,
 }
 
 
@@ -47,15 +44,10 @@ class ToNodeField(fields.Raw):
 node_fields = {
     'id': fields.Integer,
     'name': fields.String,
-    'relate_page_url': fields.String,
-    'is_template': fields.Boolean,
     'color': fields.String,
     'size': fields.String,
     'shape': fields.String,
-    'description': fields.String,
     'gid': fields.Integer,
-    'from_nodes': FromNodeField,
-    'to_nodes': ToNodeField,
     'pic': fields.String,
 }
 
@@ -142,8 +134,8 @@ class GraphApi(Resource):
         #     if not uid:
         #         return {'msg': 'Not allowed'}, 401
         raw_result = marshal(graph, graph_fields)
-        raw_result['nodes'].sort(key=lambda r: r['id'])
-        raw_result['relations'].sort(key=lambda r: r['sid'])
+        # raw_result['nodes'].sort(key=lambda r: r['id'])
+        # raw_result['relations'].sort(key=lambda r: r['sid'])
         return raw_result
 
     @jwt_required

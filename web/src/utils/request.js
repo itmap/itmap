@@ -53,6 +53,7 @@ service.interceptors.response.use(
   //     }
   error => {
     console.log('err' + error)// for debug
+    this.$root.eventHub.$emit('snackbar', '不能创建相同名字的节点')
     return Promise.reject(error)
   })
 
