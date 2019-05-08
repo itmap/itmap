@@ -14,6 +14,7 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'Main',
+      redirect: "/index",
       component: Layout,
       children: [{
         path: 'index',

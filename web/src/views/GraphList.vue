@@ -76,9 +76,9 @@ export default {
       if (this.fashionList.length > 0) {
         this.selectedGraph = this.fashionList[0]
         this.$store.commit('setGraph', this.fashionList[0])
-        this.$store.dispatch("getNodesByGraph", {
-          gid: this.fashionList[0].id
-        });
+        // this.$store.dispatch("getNodesByGraph", {
+        //   gid: this.fashionList[0].id
+        // });
       }
     })
     if (this.userId) {
